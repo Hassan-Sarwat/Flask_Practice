@@ -7,6 +7,7 @@ import threading
 
 import requests
 
+#### Setting up mysql db and global variables
 
 app = Flask(__name__)
 app.config['MYSQL_HOST']= 'localhost'
@@ -15,19 +16,19 @@ app.config['MYSQL_PASSWORD']= 'MyNewPass'
 app.config['MYSQL_DB']= 'Test'
 app.config['MYSQL_CURSORCLASS']= 'DictCursor'
 app.config['FILE_UPLOADS'] = '/home/hassan/Desktop/Assesment/'
-
+app.secret_key = "One for all"
 mysql= MySQL(app)
 
 
-key = "AIzaSyDR_5xy6JWiVF3K_bppQMCxljTnrNjs4_k"
+key = "Your API KEY Here"
 
-app.secret_key = "One for all"
+### needed for google places api 
 
 search_url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
 details_url = "https://maps.googleapis.com/maps/api/place/details/json"
 
 
-
+### If user is logged in go to home page otherwise enter login page
 
 @app.route('/', methods=['GET'])
 def home():
@@ -44,8 +45,8 @@ def success():
     app.secret_key= "One for all"
     session['name'] =  request.cookies.get('name')
     session['email'] = request.cookies.get('email')
-    
     return render_template('success.html')
+
 
 @app.route('/login',methods=["GET","POST"])
 def login():
@@ -101,6 +102,8 @@ def upload():
         return redirect(url_for('upload'))
     return render_template('upload.html')
 
+### Takes a string as a parameter and returns a location link from google places api
+
 @app.route("/places/<string:query>")
 def results(query):
 	search_payload = {"key":key, "input":query, "inputtype":'textquery'}
@@ -116,6 +119,8 @@ def results(query):
 	url = details_json["result"]["url"]
 	return jsonify({'result' : url})
 
+
+### Takes an integer as a parameter and calculates the sum of its numbers
 
 @app.route("/api/<int:number>", methods=['GET'])
 def api(number):
