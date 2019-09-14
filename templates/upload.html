@@ -1,0 +1,21 @@
+{% extends 'template.html' %}
+{% block title %} File Upload {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+<h3> Upload File </h3>
+
+
+
+<form action="" enctype='multipart/form-data' method='POST'>
+    <input type="file" name="file">
+    <input type="submit" value="upload">
+</form>
+
+
+
+    </div>
+    </div>
+    </div>
+{% endblock %}

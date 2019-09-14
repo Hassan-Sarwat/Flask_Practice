@@ -1,0 +1,53 @@
+{% extends 'template.html' %}
+{% block title %} Home {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+<h3> Home Page </h3>
+
+{% if session['logged'] %}
+
+Username : {{ name }}
+<br>
+Email : {{ email }}
+<br>
+Browser : {{ session['browser'] }}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
+<script type="text/javascript">
+$(document).ready(function(){
+$("#search").click(function() {
+    var searchReq = $.get("/places/" + $("#query").val());
+    print(searchReq)
+    searchReq.done(function(data) {
+    $("#url").attr("href", data.result);
+    });
+
+    });
+});</script>
+<div class="container">
+    <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+
+        <h3> Search Places </h3>
+        <input type="text" id="query" placeholder="Search for something...">
+        <button id="search">Search</button>
+    
+        <p><a href="" id="url" target="_blank">Click for result!</a></p>
+
+    </div>
+    </div>
+</div>
+
+{% else %}
+
+Not logged in
+
+{% endif %}
+
+    </div>
+    </div>
+    </div>
+{% endblock %}
+

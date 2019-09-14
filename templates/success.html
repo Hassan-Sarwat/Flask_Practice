@@ -1,0 +1,19 @@
+{% extends 'template.html' %}
+{% block title %} Success {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+
+<h3>Login Successful</h3>
+
+
+Welcome {{ session['name'] }}
+
+<a href="/">Click Here to go to your profile</a>
+
+
+    </div>
+    </div>
+    </div>
+{% endblock %}
